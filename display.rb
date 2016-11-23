@@ -7,6 +7,7 @@ class Display
   def initialize(board)
     @board = board
     @cursor = Cursor.new([0,0],board)
+    @selected_pos = []
   end
 
   def render
@@ -32,15 +33,26 @@ class Display
 
   def render_loop
     input = nil
-    while true
+
+    while @selected_pos.count < 2
       input = @cursor.get_input
+      if !input.nil?
+        if @selected_pos.include?(input)
+          @selected_pos = []
+        else
+          @selected_pos << input
+        end
+      end
       system("clear")
       render
-      # system("clear")
     end
-    system("clear")
-    render
+
+    @board.move_piece(@selected_pos.first, @selected_pos.last)
+    @selected_pos = []
+    render_loop
   end
+
+
 end
 
 board = Board.new

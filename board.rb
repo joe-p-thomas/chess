@@ -132,14 +132,14 @@ if __FILE__ == $PROGRAM_NAME
   board = Board.new
   board.populate
   king = King.new("King", "white", [3, 1], board)
-  queen = Queen.new("Queen", "black", [2, 0], board)
+  # queen = Queen.new("Queen", "black", [2, 0], board)
   queen = Queen.new("Queen", "black", [3, 0], board)
-  queen = Queen.new("Queen", "black", [4, 0], board)
+  # queen = Queen.new("Queen", "black", [4, 0], board)
 
   board[[3, 1]] = king
-  board[[2, 0]] = queen
+  # board[[2, 0]] = queen
   board[[3, 0]] = queen
-  board[[4, 0]] = queen
+  # board[[4, 0]] = queen
   board[[7, 3]] = queen
   p king.valid_moves
   p board.in_check?("white")
