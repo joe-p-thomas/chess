@@ -14,11 +14,11 @@ class Display
     @board.grid.each_with_index do |row, idx|
       row.each_with_index do |tile, idx2|
         if @cursor.cursor_pos == [idx, idx2]
-          print "C "
+          print tile.display.colorize(:blue) + " "
         elsif @board[[idx, idx2]].color.nil?
           print "0 "
         elsif @board.selected == [idx, idx2]
-          print "S ".colorize(:yellow)
+          print tile.display.colorize(:blue) + " "
         else
           if tile.color == "black"
             print tile.display.colorize(:red) + " "

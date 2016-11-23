@@ -20,7 +20,7 @@ class Board
       # raise "invalid move"
     end
   end
-
+  
   def move_piece!(start_pos, end_pos)
     @grid[end_pos[0]][end_pos[1]] = @grid[start_pos[0]][start_pos[1]]
     @grid[start_pos[0]][start_pos[1]] = NullPiece.instance
@@ -30,7 +30,7 @@ class Board
     @grid.each_with_index do |row, idx|
       color = idx < 3 ? "black"  : "white"
       row.each_with_index do |tile, idx2|
-        if idx == 0
+        if idx == 0 || idx == 7
           if idx2 == 0 || idx2 == 7
             @grid[idx][idx2] = Rook.new("rook", color, [idx, idx2], self)
           elsif idx2 == 1 || idx2 == 6
@@ -42,7 +42,7 @@ class Board
           else
             @grid[idx][idx2] = Queen.new("Queen", color, [idx, idx2], self) ####
           end
-        elsif idx == 1
+        elsif idx == 1 || idx == 6
           @grid[idx][idx2] = Pawn.new("pawn", color, [idx, idx2], self)
         else
           @grid[idx][idx2] = NullPiece.instance

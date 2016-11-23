@@ -9,4 +9,8 @@ class NullPiece < Piece
     @symbol = nil
   end
 
+  def display
+    "-"
+  end
+
 end
