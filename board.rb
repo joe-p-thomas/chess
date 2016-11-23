@@ -20,7 +20,7 @@ class Board
       # raise "invalid move"
     end
   end
-  
+
   def move_piece!(start_pos, end_pos)
     @grid[end_pos[0]][end_pos[1]] = @grid[start_pos[0]][start_pos[1]]
     @grid[start_pos[0]][start_pos[1]] = NullPiece.instance
@@ -28,7 +28,7 @@ class Board
 
   def populate
     @grid.each_with_index do |row, idx|
-      color = idx < 3 ? "black"  : "white"
+      color = idx < 3 ? :black : :white
       row.each_with_index do |tile, idx2|
         if idx == 0 || idx == 7
           if idx2 == 0 || idx2 == 7
@@ -75,7 +75,7 @@ class Board
   end
 
   def in_check?(color)
-    opposite_color = color == "white" ? "black" : "white"
+    opposite_color = color == :white ? :black : :white
     opposite_pieces = []
     king_pos = nil
     @grid.each_with_index do |row, idx|
@@ -114,22 +114,4 @@ class Board
     @grid[row][col] = piece
   end
 
-end
-
-if __FILE__ == $PROGRAM_NAME
-  board = Board.new
-  board.populate
-  king = King.new("King", "white", [3, 1], board)
-  # queen = Queen.new("Queen", "black", [2, 0], board)
-  queen = Queen.new("Queen", "black", [3, 0], board)
-  # queen = Queen.new("Queen", "black", [4, 0], board)
-
-  board[[3, 1]] = king
-  # board[[2, 0]] = queen
-  board[[3, 0]] = queen
-  # board[[4, 0]] = queen
-  board[[7, 3]] = queen
-  p king.valid_moves
-  p board.in_check?("white")
-  p board.checkmate?("white")
 end

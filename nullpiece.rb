@@ -10,7 +10,7 @@ class NullPiece < Piece
   end
 
   def display
-    "-"
+    " "
   end
 
 end

@@ -1,7 +1,7 @@
 require_relative 'piece'
 
 class Pawn < Piece
-  
+
   def initialize(*args)
     super
   end
@@ -14,15 +14,15 @@ class Pawn < Piece
 
 
   def moves
-    if (@position[0] != 1 && @color == "black") ||
-       (@position[0] != 6 && @color == "white")
+    if (@position[0] != 1 && @color == :black) ||
+       (@position[0] != 6 && @color == :white)
       MOVES.delete_if {|k,v| v == [-2,0]}
     end
     possible_moves = []
     MOVES.each do |direction,arr|
       row_change = arr[0]
       col_change = arr[1]
-      row_change = -1 * row_change if @color == "black"
+      row_change = -1 * row_change if @color == :black
 
       added_pos = @position.dup
 
