@@ -5,8 +5,8 @@ class NullPiece < Piece
   include Singleton
 
   def initialize
-    # @color = nil
-    # @symbol = nil
-    # super
+    @color = nil
+    @symbol = nil
   end
+
 end

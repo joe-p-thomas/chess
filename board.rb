@@ -1,10 +1,9 @@
 require_relative 'piece_requires.rb'
-require_relative 'nullpiece'
-require 'byebug'
-class Board
 
+class Board
   attr_accessor :selected
   attr_reader :grid
+
   def initialize
     @selected = nil
     @grid = Array.new(8) { Array.new(8) }
@@ -45,20 +44,6 @@ class Board
           end
         elsif idx == 1
           @grid[idx][idx2] = Pawn.new("pawn", color, [idx, idx2], self)
-        # elsif idx == 6
-        #   @grid[idx][idx2] = Pawn.new("pawn", "white", [idx, idx2], self)
-        # elsif idx == 7
-        #   if idx2 == 0 || idx2 == 7
-        #     @grid[idx][idx2] = Rook.new("rook", "white", [idx, idx2], self)
-        #   elsif idx2 == 1 || idx2 == 6
-        #     @grid[idx][idx2] = Knight.new("knight", "white", [idx, idx2], self)
-        #   elsif idx2 == 2 || idx2 == 5
-        #     @grid[idx][idx2] = Bishop.new("bishop", "white", [idx, idx2], self)
-        #   elsif idx2 == 3
-        #     @grid[idx][idx2] = King.new("King", "white", [idx, idx2], self)
-        #   else
-        #     @grid[idx][idx2] = Queen.new("Queen", "white", [idx, idx2], self)
-        #   end
         else
           @grid[idx][idx2] = NullPiece.instance
         end
@@ -67,7 +52,7 @@ class Board
   end
 
   def in_bounds?(pos)
-    row, col = pos[0], pos[1]
+    row, col = pos
     if row.between?(0, 7) && col.between?(0, 7)
       return true
     end
@@ -79,9 +64,10 @@ class Board
     @grid.each_with_index do |row, idx|
       row.each_with_index do |tile, idx2|
         if tile.is_a?(NullPiece)
-          copy[[idx,idx2]] = NullPiece.instance
+          copy[[idx, idx2]] = NullPiece.instance
         else
-          copy[[idx, idx2]] = tile.class.new(tile.value,tile.color,[idx,idx2],copy)
+          copy[[idx, idx2]] =
+            tile.class.new(tile.value, tile.color, [idx, idx2], copy)
         end
       end
     end
@@ -89,13 +75,13 @@ class Board
   end
 
   def in_check?(color)
-    opposite_color = (color == "white") ? "black" : "white"
+    opposite_color = color == "white" ? "black" : "white"
     opposite_pieces = []
     king_pos = nil
     @grid.each_with_index do |row, idx|
       row.each_with_index do |tile, idx2|
         opposite_pieces << tile if tile.color == opposite_color
-        if tile.color == color && tile.value == "King"
+        if tile.color == color && tile.is_a?(King)
           king_pos = [idx, idx2]
         end
       end
@@ -110,12 +96,12 @@ class Board
 
   def checkmate?(color)
     pieces = []
-    @grid.each_with_index do |row, idx|
-      row.each_with_index do |tile, idx2|
+    @grid.each do |row|
+      row.each do |tile|
         pieces << tile if tile.color == color
       end
     end
-    pieces.all? {|piece| piece.valid_moves.empty?}
+    pieces.all? { |piece| piece.valid_moves.empty? }
   end
 
   def [](pos)
@@ -123,9 +109,9 @@ class Board
     @grid[row][col]
   end
 
-  def []=(pos, value)
+  def []=(pos, piece)
     row, col = pos
-    @grid[row][col] = value
+    @grid[row][col] = piece
   end
 
 end

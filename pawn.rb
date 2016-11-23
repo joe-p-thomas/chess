@@ -1,8 +1,9 @@
 require_relative 'piece'
 
 class Pawn < Piece
+  
   def initialize(*args)
-    super(*args)
+    super
   end
 
   MOVES = {up_up: [-2, 0],

@@ -5,7 +5,7 @@ class Rook < Piece
   include SlidingPieces
 
   def initialize(*args)
-    super(*args)
+    super
   end
 
   def move_dir
