@@ -29,35 +29,36 @@ class Board
 
   def populate
     @grid.each_with_index do |row, idx|
+      color = idx < 3 ? "black"  : "white"
       row.each_with_index do |tile, idx2|
         if idx == 0
           if idx2 == 0 || idx2 == 7
-            @grid[idx][idx2] = Rook.new("rook", "black", [idx, idx2], self)
+            @grid[idx][idx2] = Rook.new("rook", color, [idx, idx2], self)
           elsif idx2 == 1 || idx2 == 6
-            @grid[idx][idx2] = Knight.new("knight", "black", [idx, idx2], self)
+            @grid[idx][idx2] = Knight.new("knight", color, [idx, idx2], self)
           elsif idx2 == 2 || idx2 == 5
-            @grid[idx][idx2] = Bishop.new("bishop", "black", [idx, idx2], self)
+            @grid[idx][idx2] = Bishop.new("bishop", color, [idx, idx2], self)
           elsif idx2 == 3
-            @grid[idx][idx2] = King.new("King", "black", [idx, idx2], self)
+            @grid[idx][idx2] = King.new("King", color, [idx, idx2], self)
           else
-            @grid[idx][idx2] = Queen.new("Queen", "black", [idx, idx2], self) ####
+            @grid[idx][idx2] = Queen.new("Queen", color, [idx, idx2], self) ####
           end
         elsif idx == 1
-          @grid[idx][idx2] = Pawn.new("pawn", "black", [idx, idx2], self)
-        elsif idx == 6
-          @grid[idx][idx2] = Pawn.new("pawn", "white", [idx, idx2], self)
-        elsif idx == 7
-          if idx2 == 0 || idx2 == 7
-            @grid[idx][idx2] = Rook.new("rook", "white", [idx, idx2], self)
-          elsif idx2 == 1 || idx2 == 6
-            @grid[idx][idx2] = Knight.new("knight", "white", [idx, idx2], self)
-          elsif idx2 == 2 || idx2 == 5
-            @grid[idx][idx2] = Bishop.new("bishop", "white", [idx, idx2], self)
-          elsif idx2 == 3
-            @grid[idx][idx2] = King.new("King", "white", [idx, idx2], self)
-          else
-            @grid[idx][idx2] = Queen.new("Queen", "white", [idx, idx2], self)
-          end
+          @grid[idx][idx2] = Pawn.new("pawn", color, [idx, idx2], self)
+        # elsif idx == 6
+        #   @grid[idx][idx2] = Pawn.new("pawn", "white", [idx, idx2], self)
+        # elsif idx == 7
+        #   if idx2 == 0 || idx2 == 7
+        #     @grid[idx][idx2] = Rook.new("rook", "white", [idx, idx2], self)
+        #   elsif idx2 == 1 || idx2 == 6
+        #     @grid[idx][idx2] = Knight.new("knight", "white", [idx, idx2], self)
+        #   elsif idx2 == 2 || idx2 == 5
+        #     @grid[idx][idx2] = Bishop.new("bishop", "white", [idx, idx2], self)
+        #   elsif idx2 == 3
+        #     @grid[idx][idx2] = King.new("King", "white", [idx, idx2], self)
+        #   else
+        #     @grid[idx][idx2] = Queen.new("Queen", "white", [idx, idx2], self)
+        #   end
         else
           @grid[idx][idx2] = NullPiece.instance
         end
