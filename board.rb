@@ -15,9 +15,10 @@ class Board
       raise "There is no piece at #{start_pos}"
     elsif @grid[start_pos[0]][start_pos[1]].valid_move?(end_pos)
       @grid[end_pos[0]][end_pos[1]] = @grid[start_pos[0]][start_pos[1]]
+      @grid[end_pos[0]][end_pos[1]].position = [end_pos[0],end_pos[1]]
       @grid[start_pos[0]][start_pos[1]] = NullPiece.instance
     else
-      raise "invalid move"
+      # raise "invalid move"
     end
   end
 
