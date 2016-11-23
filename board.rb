@@ -14,6 +14,9 @@ class Board
     if @grid[start_pos[0]][start_pos[1]].is_a?(NullPiece)
       raise "There is no piece at #{start_pos}"
     elsif @grid[start_pos[0]][start_pos[1]].valid_move?(end_pos)
+      @grid[end_pos[0]][end_pos[1]] = @grid[start_pos[0]][start_pos[1]]
+      @grid[start_pos[0]][start_pos[1]] = NullPiece.instance
+    else
       raise "invalid move"
     end
   end
@@ -62,6 +65,16 @@ class Board
       return true
     end
     false
+  end
+
+  def board_dup
+    copy = Board.new
+    @grid.each_with_index do |row, idx|
+      row.each_with_index do |tile, idx2|
+        copy[[idx, idx2]] = tile.class.new(tile.value,tile.color,[idx,idx2],copy)
+      end
+    end
+    copy
   end
 
   def in_check?(color)
