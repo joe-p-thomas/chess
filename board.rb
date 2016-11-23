@@ -21,6 +21,11 @@ class Board
     end
   end
 
+  def move_piece!(start_pos, end_pos)
+    @grid[end_pos[0]][end_pos[1]] = @grid[start_pos[0]][start_pos[1]]
+    @grid[start_pos[0]][start_pos[1]] = NullPiece.instance
+  end
+
   def populate
     @grid.each_with_index do |row, idx|
       row.each_with_index do |tile, idx2|
@@ -71,7 +76,11 @@ class Board
     copy = Board.new
     @grid.each_with_index do |row, idx|
       row.each_with_index do |tile, idx2|
-        copy[[idx, idx2]] = tile.class.new(tile.value,tile.color,[idx,idx2],copy)
+        if tile.is_a?(NullPiece)
+          copy[[idx,idx2]] = NullPiece.instance
+        else
+          copy[[idx, idx2]] = tile.class.new(tile.value,tile.color,[idx,idx2],copy)
+        end
       end
     end
     copy
@@ -122,13 +131,17 @@ end
 if __FILE__ == $PROGRAM_NAME
   board = Board.new
   board.populate
-  king = King.new("King", "white", [0, 0], board)
-  queen = Queen.new("Queen", "black", [0, 1], board)
-  board[[0, 0]] = king
-  board[[0, 1]] = queen
+  king = King.new("King", "white", [3, 1], board)
+  queen = Queen.new("Queen", "black", [2, 0], board)
+  queen = Queen.new("Queen", "black", [3, 0], board)
+  queen = Queen.new("Queen", "black", [4, 0], board)
+
+  board[[3, 1]] = king
+  board[[2, 0]] = queen
+  board[[3, 0]] = queen
+  board[[4, 0]] = queen
   board[[7, 3]] = queen
-  p king.moves
-  p queen.moves
-  # p rook.moves
+  p king.valid_moves
   p board.in_check?("white")
+  p board.checkmate?("white")
 end
