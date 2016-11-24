@@ -32,18 +32,18 @@ class Board
       row.each_with_index do |tile, idx2|
         if idx == 0 || idx == 7
           if idx2 == 0 || idx2 == 7
-            @grid[idx][idx2] = Rook.new("rook", color, [idx, idx2], self)
+            @grid[idx][idx2] = Rook.new(color, [idx, idx2], self)
           elsif idx2 == 1 || idx2 == 6
-            @grid[idx][idx2] = Knight.new("knight", color, [idx, idx2], self)
+            @grid[idx][idx2] = Knight.new(color, [idx, idx2], self)
           elsif idx2 == 2 || idx2 == 5
-            @grid[idx][idx2] = Bishop.new("bishop", color, [idx, idx2], self)
+            @grid[idx][idx2] = Bishop.new(color, [idx, idx2], self)
           elsif idx2 == 3
-            @grid[idx][idx2] = King.new("King", color, [idx, idx2], self)
+            @grid[idx][idx2] = King.new(color, [idx, idx2], self)
           else
-            @grid[idx][idx2] = Queen.new("Queen", color, [idx, idx2], self) ####
+            @grid[idx][idx2] = Queen.new(color, [idx, idx2], self) ####
           end
         elsif idx == 1 || idx == 6
-          @grid[idx][idx2] = Pawn.new("pawn", color, [idx, idx2], self)
+          @grid[idx][idx2] = Pawn.new(color, [idx, idx2], self)
         else
           @grid[idx][idx2] = NullPiece.instance
         end
@@ -67,7 +67,7 @@ class Board
           copy[[idx, idx2]] = NullPiece.instance
         else
           copy[[idx, idx2]] =
-            tile.class.new(tile.value, tile.color, [idx, idx2], copy)
+            tile.class.new(tile.color, [idx, idx2], copy)
         end
       end
     end
@@ -90,7 +90,6 @@ class Board
     opposite_pieces.each do |piece|
       return true if piece.moves.include?(king_pos)
     end
-
     false
   end
 

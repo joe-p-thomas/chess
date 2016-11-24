@@ -8,6 +8,14 @@ class Rook < Piece
     super
   end
 
+  def display
+    if @color == :white
+      " ♖ "
+    else
+      " ♜ "
+    end
+  end
+
   def move_dir
     [:up, :down, :left, :right]
   end

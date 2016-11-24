@@ -8,6 +8,14 @@ class King < Piece
     super
   end
 
+  def display
+    if @color == :white
+      " ♔ "
+    else
+      " ♚ "
+    end
+  end
+
   def move_dir
     [:up, :down, :left, :right,
      :left_up, :left_down, :right_up, :right_down]

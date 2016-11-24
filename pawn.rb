@@ -6,6 +6,14 @@ class Pawn < Piece
     super
   end
 
+  def display
+    if @color == :white
+      " ♙ "
+    else
+      " ♟ "
+    end
+  end
+
   MOVES = {up_up: [-2, 0],
            up: [-1,0],
            up_left: [-1,-1],

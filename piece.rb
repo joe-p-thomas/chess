@@ -4,15 +4,14 @@ class Piece
   attr_accessor :position
   attr_reader :value, :color, :board
 
-  def initialize(value = nil, color = nil, position = nil, board = nil)
-    @value = value
+  def initialize(color = nil, position = nil, board = nil)
     @color = color
     @position = position
     @board = board
   end
 
   def display
-    @value[0]
+    " X "
   end
 
   def valid_moves #returns all moves that prevents check

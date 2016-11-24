@@ -8,6 +8,14 @@ class Knight < Piece
     super
   end
 
+  def display
+    if @color == :white
+      " ♘ "
+    else
+      " ♞ "
+    end
+  end
+
   def move_dir
     [:up_right, :up_left, :left_up, :left_down, :down_left, :down_right,
      :right_down, :right_up]
